@@ -2,12 +2,12 @@ package pl.pb.clinic.model;
 
 public class Clinic {
 
-    private final int maxPatients = 1000;
-    private Patient[] patients = new Patient[maxPatients];
+    private static final int MAX_PATIENTS = 1000;
+    private Patient[] patients = new Patient[MAX_PATIENTS];
     private int patientsNumber = 0;
 
     public void addPatient(Patient patient) {
-        if (patientsNumber < maxPatients) {
+        if (patientsNumber < MAX_PATIENTS) {
             patients[patientsNumber] = patient;
             patientsNumber++;
         } else {

@@ -6,9 +6,9 @@ import pl.pb.clinic.model.Patient;
 
 
 public class ClinicControl {
-    private final int exit = 0;
-    private final int addPatient = 1;
-    private final int printPatients = 2;
+    private static final int EXIT = 0;
+    private static final int ADD_PATIENT = 1;
+    private static final int PRINT_PATIENTS = 2;
 
     private DataReader dataReader = new DataReader();
     private Clinic clinic = new Clinic();
@@ -20,20 +20,20 @@ public class ClinicControl {
             printOptions();
             option = dataReader.getInt();
             switch (option){
-                case addPatient:
+                case ADD_PATIENT:
                     addPatient();
                     break;
-                case printPatients:
+                case PRINT_PATIENTS:
                     printPatients();
                     break;
-                case exit:
+                case EXIT:
                     exit();
                     break;
                 default:
                     System.out.println("Wybrałeś błędną opcję, wprowadź ponownie poprawną");
 
             }
-        } while (option != exit); //będzie się wykonywać tak długo jak opcja wybrana przez usera będzie różna od exit
+        } while (option != EXIT); //będzie się wykonywać tak długo jak opcja wybrana przez usera będzie różna od exit
     }
 
     private void exit() {
@@ -53,9 +53,9 @@ public class ClinicControl {
 
     private void printOptions() {
         System.out.println("Wybierz opcję:");
-        System.out.println(exit + " - wyjście z programu");
-        System.out.println(addPatient + " - dodanie nowego pacjenta");
-        System.out.println(printPatients + " - wyświetl dostępnych pacjentów");
+        System.out.println(EXIT + " - wyjście z programu");
+        System.out.println(ADD_PATIENT + " - dodanie nowego pacjenta");
+        System.out.println(PRINT_PATIENTS + " - wyświetl dostępnych pacjentów");
 
     }
 }
