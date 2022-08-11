@@ -1,6 +1,6 @@
 package pl.pb.clinic.model;
 
-import org.w3c.dom.ls.LSOutput;
+
 
 public class Patient {
    private String name, lastName, placeOfBirth, sex;
@@ -14,6 +14,9 @@ public class Patient {
         this.sex = sex;
         this.yearOfBirth = yearOfBirth;
         this.weight = weight;
+    }
+    public Patient(){
+
     }
 
    public Patient(String name, String lastName, String placeOfBirth, String sex, int yearOfBirth, double weight, double height) {
