@@ -38,9 +38,10 @@ public class Clinic {
     public void printCats() { //wyświetlają się tylko koty z tablicy
         int countCats = 0;
         for (int i = 0; i < patientsNumber; i++) {
-            if (patients[i] instanceof Cat)
+            if (patients[i] instanceof Cat) {
                 patients[i].printInfo();
-            countCats++;
+                countCats++;
+            }
         }
 
         {
@@ -48,7 +49,7 @@ public class Clinic {
                 System.out.println("Brak kocich pacjentów");
             }
         }
-}
+    }
 
     public void addDog(Dog dog) {
         if (patientsNumber < MAX_PATIENTS) {
@@ -62,11 +63,11 @@ public class Clinic {
     public void printDogs() {
         int countDogs = 0;
         for (int i = 0; i < patientsNumber; i++) {
-            if (patients[i] instanceof Dog)
+            if (patients[i] instanceof Dog) {
                 patients[i].printInfo();
-            countDogs++;
+                countDogs++;
+            }
         }
-
         {
             if (countDogs == 0) {
                 System.out.println("Brak psich pacjentów");
