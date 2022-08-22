@@ -26,16 +26,14 @@ public class Dog extends Patient {
         this.colour = colour;
     }
 
+    @Override
     public void printInfo() {
-        String info = "Pacjent: " + "\n Imię: " + getName() +
-                "\n Nazwisko: " + getLastName() + "\n Płeć: " + getSex() +
-                "\n Rok urodzenia: " + getYearOfBirth() + "\n Miejsce urodzenia: " + getPlaceOfBirth() + "\nRasa: " + breed
-                + "\nUmaszczenie " + colour +
-                "\n Waga: " + getWeight() + " kg. ";
-        if(getHeight() != 0){ //jeśli nie podasz wzrostu to nie wyswietli się 0.0
+        super.printInfo();
+        dogPrintInfo();
+    }
 
-            info += "wzrost " + getHeight() + " cm";
-        }
-        System.out.println(info);
+    private void dogPrintInfo() {
+        System.out.println("Rasa: " + breed
+                + "\n Umaszczenie " + colour);
     }
 }

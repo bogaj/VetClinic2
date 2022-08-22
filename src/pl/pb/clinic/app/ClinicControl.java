@@ -92,7 +92,7 @@ public class ClinicControl {
         System.out.println(ADD_PATIENT + " - dodanie nowego pacjenta");
         System.out.println(ADD_CAT + " - dodanie nowego kociego pacjenta");
         System.out.println(ADD_DOG + " - dodanie nowego psiego pacjenta");
-        System.out.println(PRINT_PATIENTS + " - wyświetl dostępnych pacjentów");
+        System.out.println(PRINT_PATIENTS + " - wyświetl wszystkich dostępnych pacjentów");
         System.out.println(PRINT_CATS + " - wyświetl dostępnych kocich pacjentów");
         System.out.println(PRINT_DOGS + " - wyświetl dostępnych psich pacjentów");
 

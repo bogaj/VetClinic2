@@ -15,9 +15,7 @@ public class Patient {
         this.yearOfBirth = yearOfBirth;
         this.weight = weight;
     }
-    public Patient(){
 
-    }
 
    public Patient(String name, String lastName, String placeOfBirth, String sex, int yearOfBirth, double weight, double height) {
        this(name,lastName,placeOfBirth,sex,yearOfBirth,weight);

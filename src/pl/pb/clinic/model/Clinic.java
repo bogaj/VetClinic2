@@ -3,14 +3,10 @@ package pl.pb.clinic.model;
 public class Clinic {
 
     private static final int MAX_PATIENTS = 1000;
-    private static final int MAX_CATS = 1000;
-    private static final int MAX_DOGS = 1000;
-    private Patient[] patients = new Patient[MAX_PATIENTS];
-    private Cat[] cats = new Cat[MAX_CATS];
-    private Dog[] dogs = new Dog[MAX_DOGS];
+
     private int patientsNumber = 0;
-    private int catsNumber = 0;
-    private int dogsNumber = 0;
+    private Patient[] patients = new Patient[MAX_PATIENTS];
+
 
     public void addPatient(Patient patient) {
         if (patientsNumber < MAX_PATIENTS) {
@@ -31,35 +27,50 @@ public class Clinic {
     }
 
     public void addCat(Cat cat) {
-        if (catsNumber < MAX_CATS) {
-            cats[catsNumber] = cat;
-            catsNumber++;
+        if (patientsNumber < MAX_PATIENTS) {
+            patients[patientsNumber] = cat;
+            patientsNumber++;
         } else {
             System.out.println("Osiągnięto maksymalną liczbę Kocich pacjentów");
         }
     }
-    public void printCats() {
-        if (catsNumber == 0) {
-            System.out.println("Brak kotów");
+
+    public void printCats() { //wyświetlają się tylko koty z tablicy
+        int countCats = 0;
+        for (int i = 0; i < patientsNumber; i++) {
+            if (patients[i] instanceof Cat)
+                patients[i].printInfo();
+            countCats++;
         }
-        for (int i = 0; i < catsNumber; i++) {
-            cats[i].printInfo();
+
+        {
+            if (countCats == 0) {
+                System.out.println("Brak kocich pacjentów");
+            }
         }
-    }
+}
+
     public void addDog(Dog dog) {
-        if (dogsNumber < MAX_DOGS) {
-            dogs[dogsNumber] = dog;
-            dogsNumber++;
+        if (patientsNumber < MAX_PATIENTS) {
+            patients[patientsNumber] = dog;
+            patientsNumber++;
         } else {
             System.out.println("Osiągnięto maksymalną liczbę psich pacjentów");
         }
     }
+
     public void printDogs() {
-        if (dogsNumber == 0) {
-            System.out.println("Brak psów");
+        int countDogs = 0;
+        for (int i = 0; i < patientsNumber; i++) {
+            if (patients[i] instanceof Dog)
+                patients[i].printInfo();
+            countDogs++;
         }
-        for (int i = 0; i < dogsNumber; i++) {
-            dogs[i].printInfo();
+
+        {
+            if (countDogs == 0) {
+                System.out.println("Brak psich pacjentów");
+            }
         }
     }
 

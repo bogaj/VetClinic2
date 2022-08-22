@@ -26,7 +26,19 @@ public class Cat extends Patient {
     public void setColour(String colour) {
         this.colour = colour;
     }
+
+    @Override
     public void printInfo() {
+        super.printInfo();
+        catPrintInfo();
+    }
+
+    private void catPrintInfo() {
+        System.out.println("Rasa: " + breed
+                + "\n Umaszczenie " + colour);
+    }
+
+    /* public void printInfo() {
         String info = "Pacjent: " + "\n Imię: " + getName() +
                 "\n Nazwisko: " + getLastName() + "\n Płeć: " + getSex() +
                 "\n Rok urodzenia: " + getYearOfBirth() + "\n Miejsce urodzenia: " + getPlaceOfBirth() + "\nRasa: " + breed
@@ -37,5 +49,5 @@ public class Cat extends Patient {
             info += "wzrost " + getHeight() + " cm";
         }
         System.out.println(info);
-    }
+    }*/
 }
