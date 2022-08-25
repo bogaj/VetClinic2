@@ -1,5 +1,7 @@
 package pl.pb.clinic.model;
 
+import java.util.Objects;
+
 public class Cat extends Patient {
 
     private String breed, colour;
@@ -27,7 +29,7 @@ public class Cat extends Patient {
         this.colour = colour;
     }
 
-    @Override
+/*    @Override
     public void printInfo() {
         super.printInfo();
         catPrintInfo();
@@ -36,18 +38,26 @@ public class Cat extends Patient {
     private void catPrintInfo() {
         System.out.println("Rasa: " + breed
                 + "\n Umaszczenie " + colour);
+    }*/
+
+    @Override
+    public String toString() {
+        return super.toString() + "Koci pacjent: " +
+                " rasa: " + breed +
+                ", umaszczenie" + colour;
     }
 
-    /* public void printInfo() {
-        String info = "Pacjent: " + "\n Imię: " + getName() +
-                "\n Nazwisko: " + getLastName() + "\n Płeć: " + getSex() +
-                "\n Rok urodzenia: " + getYearOfBirth() + "\n Miejsce urodzenia: " + getPlaceOfBirth() + "\nRasa: " + breed
-                + "\nUmaszczenie " + colour +
-                "\n Waga: " + getWeight() + " kg. ";
-        if(getHeight() != 0){ //jeśli nie podasz wzrostu to nie wyswietli się 0.0
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false; //sprawdza pola ktore dziedziczymy po patient
+        Cat cat = (Cat) o;
+        return Objects.equals(breed, cat.breed) && Objects.equals(colour, cat.colour);
+    }
 
-            info += "wzrost " + getHeight() + " cm";
-        }
-        System.out.println(info);
-    }*/
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), breed, colour);
+    }
 }

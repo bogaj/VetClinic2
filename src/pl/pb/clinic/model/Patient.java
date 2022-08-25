@@ -1,6 +1,7 @@
 package pl.pb.clinic.model;
 
 
+import java.util.Objects;
 
 public class Patient {
    private String name, lastName, placeOfBirth, sex;
@@ -78,16 +79,32 @@ public class Patient {
         this.height = height;
     }
 
-    public void printInfo() {
-        String info = "Pacjent: " + "\n Imię: " + name +
-                "\n Nazwisko: " + lastName + "\n Płeć: " + sex +
-                "\n Rok urodzenia: " + yearOfBirth + "\n Miejsce urodzenia: " + placeOfBirth +
-                "\n Waga: " + weight + " kg. ";
-        if(height != 0){ //jeśli nie podasz wzrostu to nie wyswietli się 0.0
 
-            info += "wzrost " + height + " cm";
-        }
-        System.out.println(info);
+    @Override
+    public String toString() {
+        return "Pacjent: \n" +
+                " Imię: " + name +
+                ", Nazwisko: " + lastName +
+                ", Miejsce urodzenia: " + placeOfBirth +
+                ", płeć: " + sex +
+                ", rok urodzenia: " + yearOfBirth +
+                ", waga: " + weight +
+                ", wzrost: " + height;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return yearOfBirth == patient.yearOfBirth && Double.compare(patient.weight, weight) == 0 && Double.compare(patient.height, height) == 0 && Objects.equals(name, patient.name) && Objects.equals(lastName, patient.lastName) && Objects.equals(placeOfBirth, patient.placeOfBirth) && Objects.equals(sex, patient.sex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastName, placeOfBirth, sex, yearOfBirth, weight, height);
+    }
+
+
 }
 

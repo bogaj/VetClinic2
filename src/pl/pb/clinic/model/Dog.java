@@ -1,5 +1,7 @@
 package pl.pb.clinic.model;
 
+import java.util.Objects;
+
 public class Dog extends Patient {
     private String breed, colour;
 
@@ -26,7 +28,7 @@ public class Dog extends Patient {
         this.colour = colour;
     }
 
-    @Override
+  /*  @Override
     public void printInfo() {
         super.printInfo();
         dogPrintInfo();
@@ -35,5 +37,26 @@ public class Dog extends Patient {
     private void dogPrintInfo() {
         System.out.println("Rasa: " + breed
                 + "\n Umaszczenie " + colour);
+    }*/
+
+    @Override
+    public String toString() {
+        return super.toString() + "Psi pacjent " +
+                " rasa: " + breed +
+                ", umaszczenie" + colour;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Dog dog = (Dog) o;
+        return Objects.equals(breed, dog.breed) && Objects.equals(colour, dog.colour);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), breed, colour);
     }
 }

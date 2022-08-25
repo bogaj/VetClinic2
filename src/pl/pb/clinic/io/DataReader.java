@@ -18,7 +18,7 @@ public class DataReader {
         String sex = scanner.nextLine();
         System.out.println("Rok urodzenia");
         int yearOfBirth = getInt();
-        scanner.nextLine();
+
         System.out.println("Miejsce urodzenia");
         String placeOfBirth = scanner.nextLine();
         System.out.println("Waga");
@@ -38,7 +38,7 @@ public class DataReader {
         String sex = scanner.nextLine();
         System.out.println("Rok urodzenia");
         int yearOfBirth = getInt();
-        scanner.nextLine();
+
         System.out.println("Miejsce urodzenia");
         String placeOfBirth = scanner.nextLine();
         System.out.println("Rasa:");
@@ -63,7 +63,7 @@ public class DataReader {
         String sex = scanner.nextLine();
         System.out.println("Rok urodzenia");
         int yearOfBirth = getInt();
-        scanner.nextLine();
+
         System.out.println("Miejsce urodzenia");
         String placeOfBirth = scanner.nextLine();
         System.out.println("Rasa:");
