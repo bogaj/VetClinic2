@@ -8,6 +8,7 @@ public class Patient {
    private int yearOfBirth;
    private double weight, height;
 
+
     public Patient(String name, String lastName, String placeOfBirth, String sex, int yearOfBirth, double weight) {
         this.name = name;
         this.lastName = lastName;

@@ -1,25 +1,29 @@
 package pl.pb.clinic.app;
 
+import pl.pb.clinic.exception.NoSuchOptionException;
+import pl.pb.clinic.io.ConsolePrinter;
 import pl.pb.clinic.io.DataReader;
 import pl.pb.clinic.model.Cat;
 import pl.pb.clinic.model.Dog;
 import pl.pb.clinic.model.Clinic;
 import pl.pb.clinic.model.Patient;
 
+import java.util.InputMismatchException;
+
 
 public class ClinicControl {
 
-
-    private DataReader dataReader = new DataReader();
+    private ConsolePrinter printer = new ConsolePrinter();
+    private DataReader dataReader = new DataReader(printer); //wstrzykiwanie zależności z DataReader
     private Clinic clinic = new Clinic();
 
 
-    public void controlLoop(){
+    public void controlLoop() {
         Option option; //zmienna do opcji od użytkownika
         do {
             printOptions();
-            option = Option.createFromInt(dataReader.getInt());
-            switch (option){ //jak dodamy nowe alt + enter i wygenruje nowe
+            option = getOption();
+            switch (option) { //jak dodamy nowe alt + enter i wygenruje nowe
                 case ADD_PATIENT:
                     addPatient();
                     break;
@@ -42,49 +46,90 @@ public class ClinicControl {
                     exit();
                     break;
                 default:
-                    System.out.println("Wybrałeś błędną opcję, wprowadź ponownie poprawną");
+                    printer.printLine("Wybrałeś błędną opcję, wprowadź ponownie poprawną");
 
             }
         } while (option != Option.EXIT); //będzie się wykonywać tak długo jak opcja wybrana przez usera będzie różna od exit
     }
 
+    private Option getOption() {
+        boolean optionOk = false;
+        Option option = null;
+        while (!optionOk) {
+            try {
+                option = Option.createFromInt(dataReader.getInt());
+                optionOk = true;
+            } catch (NoSuchOptionException e) {
+                printer.printLine(e.getMessage());
+            } catch (InputMismatchException e) {
+                printer.printLine("Wprowadzono wartość, która nie jest liczbą, podaj ponownie");
+            }
+        }
+        return option;
+    }
+
     private void printCats() {
-        clinic.printCats();
+
+        Patient[] patients = clinic.getPatients();
+        printer.printCats(patients);
+
     }
 
     private void addCat() {
-        Cat cat = dataReader.readAndCreateCat();
-        clinic.addCat(cat);
+        try {
+            Cat cat = dataReader.readAndCreateCat();
+            clinic.addCat(cat);
+        } catch (InputMismatchException e) {
+            printer.printLine("Nie udało utworzyć się kociego pacjenta");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printer.printLine("Osiągnięto limit pacjentów");
+        }
     }
+
     private void printDogs() {
-        clinic.printDogs();
+        Patient[] patients = clinic.getPatients();
+        printer.printDogs(patients);
     }
 
     private void addDog() {
-        Dog dog = dataReader.readAndCreateDog();
-        clinic.addDog(dog);
+        try {
+            Dog dog = dataReader.readAndCreateDog();
+
+            clinic.addDog(dog);
+        } catch (InputMismatchException e) {
+            printer.printLine("Nie udało utworzyć się psiego pacjenta");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printer.printLine("Osiągnięto limit pacjentów");
+        }
     }
 
     private void exit() {
-        System.out.println("Koniec programu");
+        printer.printLine("Koniec programu");
         dataReader.close();
     }
 
     private void printPatients() {
-        clinic.printPatients();
+        Patient[] patients = clinic.getPatients();
+        printer.printPatients(patients);
     }
 
 
     private void addPatient() {
-        Patient patient = dataReader.readAndCreatePatient();
-        clinic.addPatient(patient);
+        try {
+            Patient patient = dataReader.readAndCreatePatient();
+            clinic.addPatient(patient);
+        } catch (InputMismatchException e) {
+            printer.printLine("Nie udało utworzyć się pacjenta");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printer.printLine("Osiągnięto limit pacjentów");
+        }
     }
 
     private void printOptions() {
-        System.out.println("Wybierz opcję:");
+        printer.printLine("Wybierz opcję: ");
         //zautomatyzuje wybór opcji i jak dojdą nowe to łatwiej będzie je dopisać
-        for (Option value : Option.values()) {
-            System.out.println(value);
+        for (Option option : Option.values()) {
+            printer.printLine(option.toString());
         }
 
     }

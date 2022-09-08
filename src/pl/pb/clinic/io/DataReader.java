@@ -8,80 +8,89 @@ import java.util.Scanner;
 
 public class DataReader {
     private Scanner scanner = new Scanner(System.in); //jest tu nie w metodzie, zeby nie trzeba było zamykać i nie wyrzuci błędu przy 2 obiekcie
+private ConsolePrinter printer;
 
-   public Patient readAndCreatePatient(){
-        System.out.println("Imię:");
+    public DataReader(ConsolePrinter printer) {// tzw. wstrzykiwanie zależności
+        this.printer = printer;
+    }
+
+    public Patient readAndCreatePatient(){
+        printer.printLine("Imię:");
         String name = scanner.nextLine();
-        System.out.println("Nazwisko:");
+        printer.printLine("Nazwisko:");
         String lastName = scanner.nextLine();
-        System.out.println("Płeć:");
+        printer.printLine("Płeć:");
         String sex = scanner.nextLine();
-        System.out.println("Rok urodzenia");
+        printer.printLine("Rok urodzenia");
         int yearOfBirth = getInt();
 
-        System.out.println("Miejsce urodzenia");
+        printer.printLine("Miejsce urodzenia");
         String placeOfBirth = scanner.nextLine();
-        System.out.println("Waga");
+        printer.printLine("Waga");
         double weight = scanner.nextDouble();
         scanner.nextLine();
-        System.out.println("Wzrost");
+        printer.printLine("Wzrost");
         double height = scanner.nextDouble();
         scanner.nextLine();
         return new Patient(name,lastName,placeOfBirth,sex,yearOfBirth,weight,height);
     }
     public Cat readAndCreateCat(){
-        System.out.println("Imię:");
+        printer.printLine("Imię:");
         String name = scanner.nextLine();
-        System.out.println("Nazwisko:");
+        printer.printLine("Nazwisko:");
         String lastName = scanner.nextLine();
-        System.out.println("Płeć:");
+        printer.printLine("Płeć:");
         String sex = scanner.nextLine();
-        System.out.println("Rok urodzenia");
+        printer.printLine("Rok urodzenia");
         int yearOfBirth = getInt();
 
-        System.out.println("Miejsce urodzenia");
+        printer.printLine("Miejsce urodzenia");
         String placeOfBirth = scanner.nextLine();
-        System.out.println("Rasa:");
+        printer.printLine("Rasa:");
         String breed = scanner.nextLine();
-        System.out.println("Umaszczenie:");
+        printer.printLine("Umaszczenie:");
         String colour = scanner.nextLine();
-        System.out.println("Waga");
+        printer.printLine("Waga");
         double weight = scanner.nextDouble();
         scanner.nextLine();
-        System.out.println("Wzrost");
+        printer.printLine("Wzrost");
         double height = scanner.nextDouble();
         scanner.nextLine();
         return new Cat(name,lastName,placeOfBirth,sex,yearOfBirth,weight,height,breed, colour);
     }
 
     public Dog readAndCreateDog(){
-        System.out.println("Imię:");
+        printer.printLine("Imię:");
         String name = scanner.nextLine();
-        System.out.println("Nazwisko:");
+        printer.printLine("Nazwisko:");
         String lastName = scanner.nextLine();
-        System.out.println("Płeć:");
+        printer.printLine("Płeć:");
         String sex = scanner.nextLine();
-        System.out.println("Rok urodzenia");
+        printer.printLine("Rok urodzenia");
         int yearOfBirth = getInt();
 
-        System.out.println("Miejsce urodzenia");
+        printer.printLine("Miejsce urodzenia");
         String placeOfBirth = scanner.nextLine();
-        System.out.println("Rasa:");
+        printer.printLine("Rasa:");
         String breed = scanner.nextLine();
-        System.out.println("Umaszczenie:");
+        printer.printLine("Umaszczenie:");
         String colour = scanner.nextLine();
-        System.out.println("Waga");
+        printer.printLine("Waga");
         double weight = scanner.nextDouble();
         scanner.nextLine();
-        System.out.println("Wzrost");
+        printer.printLine("Wzrost");
         double height = scanner.nextDouble();
         scanner.nextLine();
         return new Dog(name,lastName,placeOfBirth,sex,yearOfBirth,weight,height,breed, colour);
     }
     public int getInt(){
-       int number = scanner.nextInt();
-       scanner.nextLine();
-       return number;
+       try {
+
+           return scanner.nextInt();
+       }finally {
+           scanner.nextLine();
+       }
+
     }
     public void close(){
        scanner.close();

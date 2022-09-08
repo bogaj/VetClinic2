@@ -1,12 +1,14 @@
 package pl.pb.clinic.app;
 
+import pl.pb.clinic.exception.NoSuchOptionException;
+
 public enum Option {
     EXIT(0, "wyjście z programu"),
-    ADD_PATIENT(1,"dodanie nowego pacjenta"),
-    ADD_CAT(2,"dodanie kociego pacjenta"),
+    ADD_PATIENT(1, "dodanie nowego pacjenta"),
+    ADD_CAT(2, "dodanie kociego pacjenta"),
     ADD_DOG(3, "dodanie psiego pacjenta"),
     PRINT_PATIENTS(4, "wyświetlenie wszystkich dostępnych pacjentów"),
-    PRINT_CATS (5, "wyświetlenie kocich pacjentów"),
+    PRINT_CATS(5, "wyświetlenie kocich pacjentów"),
     PRINT_DOGS(6, "wyświetlenie psich pacjentów");
 
     private final int value;
@@ -29,7 +31,12 @@ public enum Option {
     public String toString() {
         return value + " - " + description;
     }
-    static Option createFromInt (int option){
-        return Option.values()[option];
+
+    static Option createFromInt(int option) throws NoSuchOptionException {
+        try {
+            return Option.values()[option];
+        }catch (ArrayIndexOutOfBoundsException e){
+throw new NoSuchOptionException("Brak opcji o id: " + option);
+        }
     }
 }
