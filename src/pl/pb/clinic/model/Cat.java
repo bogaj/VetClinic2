@@ -3,7 +3,7 @@ package pl.pb.clinic.model;
 import java.util.Objects;
 
 public class Cat extends Patient {
-
+public static final String TYPE = "Koci pacjent";
     private String breed, colour;
 
     public Cat(String name, String lastName, String placeOfBirth, String sex, int yearOfBirth, double weight,
@@ -41,8 +41,21 @@ public class Cat extends Patient {
     }*/
 
     @Override
+    public String toCsv() {
+        return TYPE + ";" + getName() + ";" + getLastName() + ";" + getPlaceOfBirth() + ";"
+                + getSex() + ";" + getYearOfBirth() + ";" + getWeight() + ";" + getHeight() ;
+    }
+
+    @Override
     public String toString() {
-        return super.toString() + "Koci pacjent: " +
+        return  TYPE + "\n" +
+                " Imię: " + getName() +
+                ", Nazwisko: " + getLastName() +
+                ", Miejsce urodzenia: " + getPlaceOfBirth() +
+                ", płeć: " + getSex() +
+                ", rok urodzenia: " + getYearOfBirth() +
+                ", waga: " + getWeight() +
+                ", wzrost: " + getHeight() +
                 " rasa: " + breed +
                 ", umaszczenie" + colour;
     }

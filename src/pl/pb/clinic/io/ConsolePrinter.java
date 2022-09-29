@@ -15,7 +15,10 @@ public class ConsolePrinter {
                 System.out.println(patient);
                 countPatients++;
             }
-        }}
+        }if (countPatients == 0){
+            printLine("Brak pacjentów");
+        }
+    }
 
     public void printCats(Patient[] patients) { //wyświetlają się tylko koty z tablicy
         int countCats = 0;

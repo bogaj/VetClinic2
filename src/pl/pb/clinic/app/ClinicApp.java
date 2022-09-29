@@ -1,7 +1,7 @@
 package pl.pb.clinic.app;
 
 public class ClinicApp {
-    private static final String APP_NAME = "VetClinic v 0.6";
+    private static final String APP_NAME = "VetClinic v 0.7";
     public static void main(String[] args) {
         System.out.println(APP_NAME);
 

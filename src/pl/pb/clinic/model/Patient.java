@@ -1,9 +1,11 @@
 package pl.pb.clinic.model;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Patient {
+public class Patient implements Serializable {
+    public static final String TYPE = "Pacjent";
    private String name, lastName, placeOfBirth, sex;
    private int yearOfBirth;
    private double weight, height;
@@ -80,6 +82,10 @@ public class Patient {
         this.height = height;
     }
 
+
+    public String toCsv() {
+        return TYPE + ";" + name + ";" + lastName + ";" + placeOfBirth + ";" + sex + ";" + yearOfBirth + ";" + weight + ";" + height ;
+    }
 
     @Override
     public String toString() {

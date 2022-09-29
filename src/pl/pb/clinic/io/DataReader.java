@@ -92,6 +92,9 @@ private ConsolePrinter printer;
        }
 
     }
+    public String getString(){
+        return scanner.nextLine();
+    }
     public void close(){
        scanner.close();
     }

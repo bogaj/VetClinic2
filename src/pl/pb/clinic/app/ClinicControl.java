@@ -1,8 +1,13 @@
 package pl.pb.clinic.app;
 
+import pl.pb.clinic.exception.DataExportException;
+import pl.pb.clinic.exception.DataImportException;
+import pl.pb.clinic.exception.InvalidDataException;
 import pl.pb.clinic.exception.NoSuchOptionException;
 import pl.pb.clinic.io.ConsolePrinter;
 import pl.pb.clinic.io.DataReader;
+import pl.pb.clinic.io.file.FileManager;
+import pl.pb.clinic.io.file.FileManagerBuilder;
 import pl.pb.clinic.model.Cat;
 import pl.pb.clinic.model.Dog;
 import pl.pb.clinic.model.Clinic;
@@ -15,8 +20,21 @@ public class ClinicControl {
 
     private ConsolePrinter printer = new ConsolePrinter();
     private DataReader dataReader = new DataReader(printer); //wstrzykiwanie zależności z DataReader
+    private FileManager fileManager;
+
     private Clinic clinic = new Clinic();
 
+    public ClinicControl() {
+        fileManager = new FileManagerBuilder(printer, dataReader).build();
+        try {
+            clinic = fileManager.importData();
+            printer.printLine("Zaimportwoano dane z pliku");
+        }catch (DataImportException | InvalidDataException e){
+            printer.printLine(e.getMessage());
+            printer.printLine("Zaninicjowano nową bazę");
+            clinic = new Clinic();
+        }
+    }
 
     public void controlLoop() {
         Option option; //zmienna do opcji od użytkownika
@@ -104,6 +122,13 @@ public class ClinicControl {
     }
 
     private void exit() {
+        try {
+            fileManager.exportData(clinic);
+            printer.printLine("Zapis danych do pliku zakończony powodzeniem");
+        }catch (DataExportException e){
+            printer.printLine(e.getMessage());
+        }
+
         printer.printLine("Koniec programu");
         dataReader.close();
     }
@@ -133,4 +158,44 @@ public class ClinicControl {
         }
 
     }
+
+    private enum Option {
+        EXIT(0, "wyjście z programu"),
+        ADD_PATIENT(1, "dodanie nowego pacjenta"),
+        ADD_CAT(2, "dodanie kociego pacjenta"),
+        ADD_DOG(3, "dodanie psiego pacjenta"),
+        PRINT_PATIENTS(4, "wyświetlenie wszystkich dostępnych pacjentów"),
+        PRINT_CATS(5, "wyświetlenie kocich pacjentów"),
+        PRINT_DOGS(6, "wyświetlenie psich pacjentów");
+
+        private final int value;
+        private final String description;
+
+        Option(int value, String description) {
+            this.value = value;
+            this.description = description;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        @Override
+        public String toString() {
+            return value + " - " + description;
+        }
+
+        static Option createFromInt(int option) throws NoSuchOptionException {
+            try {
+                return Option.values()[option];
+            }catch (ArrayIndexOutOfBoundsException e){
+                throw new NoSuchOptionException("Brak opcji o id: " + option);
+            }
+        }
+    }
+
 }

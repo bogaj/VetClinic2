@@ -1,9 +1,10 @@
 package pl.pb.clinic.model;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class Clinic {
+public class Clinic implements Serializable {
 
     private static final int MAX_PATIENTS = 1000;
 
